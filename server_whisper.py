@@ -10,6 +10,6 @@ def handler(ws):
         segs, _ = model.transcribe(a, language="ja", vad_filter=True)
         ws.send("".join(s.text for s in segs))
 
-with serve(handler, "localhost", 18765, max_size=None) as s:
+with serve(handler, "localhost", 18766, max_size=None) as s:
     print("ready")
     s.serve_forever()
