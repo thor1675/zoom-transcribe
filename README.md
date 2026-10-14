@@ -5,7 +5,7 @@ Zoom会議の音声（PCから出ている音）を、研究室サーバーのGP
 - `server.py` … サーバー側（Qwen3-ASR-1.7B）。WebSocketで音声を受け取り、文字起こしした結果を返す（ポート18765）。`terms.txt` の専門用語をヒントとして渡す。無音区間はSilero VADで落とす（無音のまま渡すと用語リストをそのまま出力するため）
 - `server_whisper.py` … 旧版のサーバー（faster-whisper large-v3、ポート18766）。比較用に残している
 - `terms.example.txt` … 専門用語ファイルの例。`cp terms.example.txt terms.txt` してから授業や会議に合わせて書き換える（`terms.txt` はgit管理外）
-- `client.py` … Windows PC側。WASAPIループバックでPCの出力音を取り込み、10秒ごとにサーバーへ送る。起動しているサーバー（qwen・whisper）すべてに同じ音声を送り、結果はモデルごとに `~/documents/zoom_transcribe/録音/日時_モデル名.txt` に保存する
+- `client.py` … Windows PC側。WASAPIループバックでPCの出力音を取り込み、10秒ごとにサーバーへ送る。起動しているサーバー（qwen・whisper）すべてに同じ音声を送り、結果はモデルごとに `~/documents/zoom-transcribe/録音/日時_モデル名.txt` に保存する
 
 ## セットアップ（初回のみ）
 

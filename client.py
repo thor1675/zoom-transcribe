@@ -5,7 +5,7 @@ from scipy.signal import resample_poly
 from websockets.sync.client import connect
 
 CHUNK_SEC = 10
-OUT = pathlib.Path.home() / "documents" / "zoom_transcribe" / "録音" ; OUT.mkdir(parents=True, exist_ok=True)
+OUT = pathlib.Path.home() / "documents" / "zoom-transcribe" / "録音" ; OUT.mkdir(parents=True, exist_ok=True)
 # 送り先のサーバー。起動していないものは飛ばす
 SERVERS = {"qwen": "ws://localhost:18765", "whisper": "ws://localhost:18766"}
 
