@@ -4,7 +4,7 @@ import pyaudiowpatch as pyaudio
 from scipy.signal import resample_poly
 from websockets.sync.client import connect
 
-CHUNK_SEC = 5
+CHUNK_SEC = 10
 OUT = pathlib.Path.home() / "授業録音"; OUT.mkdir(exist_ok=True)
 txt = open(OUT / f"{datetime.datetime.now():%Y%m%d_%H%M}.txt",
            "a", encoding="utf-8")
