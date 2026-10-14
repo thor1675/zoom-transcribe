@@ -23,13 +23,13 @@ pip install pyaudiowpatch numpy scipy websockets
 ## 毎回の手順
 
 1. サーバーで `tmux new -s whisper` → `cd ~/zoom-transcribe` → `CUDA_VISIBLE_DEVICES=0 .venv-qwen/bin/python server.py`。`ready` が出たら `Ctrl+B` → `D`
-2. VS Code の「ポート」タブで 18765 を転送する（または PC の PowerShell で `ssh -L 18765:localhost:18765 <user>@<server>`）
+2. PC の PowerShell で `ssh -N -L 28765:127.0.0.1:18765 -L 28766:127.0.0.1:18766 <user>@<server>` を実行し、開いたままにする（VS Code のポート転送は宛先が IPv6 になってつながらないことがあるので使わない）
 3. Zoom に入ってから、PC の PowerShell で `python client.py`
 4. 終わったら PC で `Ctrl+C`、サーバーで `tmux attach -t whisper` → `Ctrl+C`（GPUメモリを解放）
 
 ## 両方のモデルで同時に文字起こしする
 
-別のtmuxで `CUDA_VISIBLE_DEVICES=1 .venv/bin/python server_whisper.py` も起動し、18766 も転送する。`client.py` は両方につなぎ、片方しか起動していなければそちらだけ使う。
+別のtmuxで `CUDA_VISIBLE_DEVICES=1 .venv/bin/python server_whisper.py` も起動する。`client.py` は両方につなぎ、片方しか起動していなければそちらだけ使う。
 
 ## 注意
 

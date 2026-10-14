@@ -7,7 +7,8 @@ from websockets.sync.client import connect
 CHUNK_SEC = 10
 OUT = pathlib.Path.home() / "documents" / "zoom-transcribe" / "録音" ; OUT.mkdir(parents=True, exist_ok=True)
 # 送り先のサーバー。起動していないものは飛ばす
-SERVERS = {"qwen": "ws://localhost:18765", "whisper": "ws://localhost:18766"}
+# ssh -N -L 28765:127.0.0.1:18765 -L 28766:127.0.0.1:18766 <user>@<server> で転送しておく
+SERVERS = {"qwen": "ws://127.0.0.1:28765", "whisper": "ws://127.0.0.1:28766"}
 
 stamp = f"{datetime.datetime.now():%Y%m%d_%H%M}"
 conns = {}
