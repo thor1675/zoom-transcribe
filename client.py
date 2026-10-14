@@ -14,8 +14,8 @@ conns = {}
 for name, url in SERVERS.items():
     try:
         ws = connect(url, max_size=None, open_timeout=3)
-    except Exception:
-        print(f"  {name}：つながらないので使わない（{url}）")
+    except Exception as e:
+        print(f"  {name}：つながらないので使わない（{url}：{type(e).__name__} {e}）")
         continue
     conns[name] = (ws, open(OUT / f"{stamp}_{name}.txt", "a", encoding="utf-8"))
     print(f"  {name}：接続しました")
