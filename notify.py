@@ -7,7 +7,7 @@ COOLDOWN_SEC = 120  # 同じ言葉ではこの秒数のあいだ続けて通知�
 
 # Slack の Incoming Webhook の URL（git管理外。なければ通知しない）
 _url_file = pathlib.Path(__file__).with_name("slack_webhook.txt")
-WEBHOOK = _url_file.read_text(encoding="utf-8").strip() if _url_file.exists() else ""
+WEBHOOK = _url_file.read_text(encoding="utf-8-sig").strip() if _url_file.exists() else ""
 _last = {}
 
 def _post(text):
