@@ -3,6 +3,7 @@ import numpy as np
 import pyaudiowpatch as pyaudio
 from scipy.signal import resample_poly
 from websockets.sync.client import connect
+import notify
 
 CHUNK_SEC = 10
 OUT = pathlib.Path.home() / "documents" / "zoom-transcribe" / "録音" ; OUT.mkdir(parents=True, exist_ok=True)
@@ -22,6 +23,7 @@ for name, url in SERVERS.items():
     print(f"  {name}：接続しました")
 if not conns:
     raise SystemExit("サーバーに1つもつながりませんでした")
+print(f"  Slack通知：{'オン' if notify.WEBHOOK else 'オフ（slack_webhook.txt がない）'}")
 
 p = pyaudio.PyAudio()
 dev = p.get_default_wasapi_loopback()
@@ -39,11 +41,13 @@ def send(buf):
     for ws, _ in conns.values():
         ws.send(data)
     el = time.strftime("%H:%M:%S", time.gmtime(time.time() - start))
+    texts = {}
     for name, (ws, txt) in conns.items():
-        text = ws.recv()
+        text = texts[name] = ws.recv()
         if text:
             print(f"[{el}] {name:>7}：{text}")
             txt.write(f"[{el}] {text}\n"); txt.flush()
+    notify.check(el, texts)
 
 stream = p.open(format=pyaudio.paInt16, channels=ch, rate=rate, input=True,
                 input_device_index=dev["index"], stream_callback=cb)

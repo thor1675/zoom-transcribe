@@ -31,6 +31,11 @@ pip install pyaudiowpatch numpy scipy websockets
 
 別のtmuxで `CUDA_VISIBLE_DEVICES=1 .venv/bin/python server_whisper.py` も起動する。`client.py` は両方につなぎ、片方しか起動していなければそちらだけ使う。
 
+## Slack通知
+
+`notify.py` の `KEYWORDS`（小テスト・課題・提出など）が文字起こしに出てきたら、Slack に通知する。Qwen と Whisper のどちらかに出てくれば通知する。同じ言葉は2分間続けて通知しない。
+PC の `client.py` と同じフォルダに `slack_webhook.txt` を置き、Slack の Incoming Webhook の URL を1行だけ書く（git管理外）。ファイルがなければ通知しない。
+
 ## 注意
 
 - `terms.txt` を変えたらサーバーを再起動する
